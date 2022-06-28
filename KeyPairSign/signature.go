@@ -7,7 +7,7 @@ import (
 	"crypto/sha256"
 )
 
-func signData(privateKey *rsa.PrivateKey, data string) ([]byte, []byte) { //RSA signing, returns signature and the result of hashing the input message using sha-256
+func SignData(privateKey *rsa.PrivateKey, data string) ([]byte, []byte) { //RSA signing, returns signature and the result of hashing the input message using sha-256
 	msg := []byte(data)
 
 	msgHash := sha256.New()
@@ -24,7 +24,7 @@ func signData(privateKey *rsa.PrivateKey, data string) ([]byte, []byte) { //RSA 
 	return signature, msgHashSum
 }
 
-func verifySignature(signature []byte, publicKey *rsa.PublicKey, msgHash []byte) bool { //RSA verification
+func VerifySignature(signature []byte, publicKey *rsa.PublicKey, msgHash []byte) bool { //RSA verification
 	err := rsa.VerifyPSS(publicKey, crypto.SHA256, msgHash, signature, nil)
 
 	if err != nil { //couldn't verify signature

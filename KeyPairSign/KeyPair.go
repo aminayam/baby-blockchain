@@ -6,8 +6,8 @@ import (
 )
 
 type KeyPair struct {
-	privateKey *rsa.PrivateKey
-	publicKey  *rsa.PublicKey
+	PrivateKey *rsa.PrivateKey
+	PublicKey  *rsa.PublicKey
 }
 
 func GenKeyPair() KeyPair { //generates random key pair
@@ -17,5 +17,5 @@ func GenKeyPair() KeyPair { //generates random key pair
 	}
 	privateKey := privateKeyStruct
 	publicKey := privateKey.PublicKey
-	return KeyPair{privateKey, &publicKey}
+	return KeyPair{PrivateKey: privateKey, PublicKey: &publicKey}
 }
