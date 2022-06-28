@@ -10,7 +10,7 @@ type KeyPair struct {
 	publicKey  *rsa.PublicKey
 }
 
-func genKeyPair() KeyPair { //generates random key pair
+func GenKeyPair() KeyPair { //generates random key pair
 	privateKeyStruct, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
