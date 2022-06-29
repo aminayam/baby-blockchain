@@ -10,42 +10,42 @@ import (
 var ID []int
 
 type Account struct {
-	accountID int
-	wallet    map[int]KeyPairSign.KeyPair
-	balance   []string
+	AccountID int
+	Wallet    map[int]KeyPairSign.KeyPair
+	Balance   []string
 }
 
-func genAccount() Account {
+func GenAccount() Account {
 	var wallet map[int]KeyPairSign.KeyPair
 	wallet[1] = KeyPairSign.GenKeyPair()
 	var balance []string
-	return Account{accountID: idGen(), wallet: wallet, balance: balance}
+	return Account{AccountID: idGen(), Wallet: wallet, Balance: balance}
 }
 
-func (account Account) addKeyPairToWallet(NewKeyPair KeyPairSign.KeyPair) {
-	account.wallet[len(account.wallet)+1] = NewKeyPair
+func (account Account) AddKeyPairToWallet(NewKeyPair KeyPairSign.KeyPair) {
+	account.Wallet[len(account.Wallet)+1] = NewKeyPair
 }
 
-func (account Account) updateBalance(newItem string) {
-	account.balance = append(account.balance, newItem)
+func (account Account) UpdateBalance(newItem string) {
+	account.Balance = append(account.Balance, newItem)
 }
 
-func (account Account) createPaymentOp(receiver Account, id int, items []string) *OperTx.Operation {
+func (account Account) CreatePaymentOp(receiver Account, id int, items []string) *OperTx.Operation {
 	data := strings.Join(items, " ")
-	signature := account.signData(data, id)
+	signature := account.SignData(data, id)
 	return &OperTx.Operation{Sender: account, Receiver: receiver, Items: items, Signature: signature}
 }
 
-func (account Account) getBalance() []string {
-	return account.balance
+func (account Account) GetBalance() []string {
+	return account.Balance
 }
 
-func (account Account) printBalance() {
-	fmt.Println(account.balance)
+func (account Account) PrintBalance() {
+	fmt.Println(account.Balance)
 }
 
-func (account Account) signData(data string, id int) []byte {
-	signature, _ := KeyPairSign.SignData(account.wallet[id].PrivateKey, data)
+func (account Account) SignData(data string, id int) []byte {
+	signature, _ := KeyPairSign.SignData(account.Wallet[id].PrivateKey, data)
 	return signature
 }
 
