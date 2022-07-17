@@ -1,15 +1,15 @@
 package OperTx
 
-import "baby-blockchain/Account"
-
 type Operation struct {
-	Sender    Account.Account
-	Receiver  Account.Account
+	Sender    Account
+	Receiver  Account
 	Items     []string
 	Signature []byte
 }
 
-func createOperation(sender Account.Account, receiver Account.Account, items []string, signature []byte) {
+func createOperation(sender Account, receiver Account, items []string, signature []byte) Operation {
+	return Operation{Sender: sender, Receiver: receiver, Items: items, Signature: signature}
+
 }
 
 func verifyOperation(operation Operation) bool {

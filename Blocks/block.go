@@ -8,12 +8,12 @@ import (
 )
 
 type Block struct {
-	BlockID           string               //уникальный идентификатор блока (хэш-значение от всех остальных данных).
-	PrevBlockHash     string               //идентификатор предыдущего блока (необходим для обеспечения проверки целостности истории).
-	SetOfTransactions []OperTx.Transaction //список транзакций, подтверждаемых в данном блоке.
+	BlockID           string             //уникальный идентификатор блока (хэш-значение от всех остальных данных).
+	PrevBlockHash     string             //идентификатор предыдущего блока (необходим для обеспечения проверки целостности истории).
+	SetOfTransactions OperTx.Transaction //список транзакций, подтверждаемых в данном блоке.
 }
 
-func CreateBlock(data []OperTx.Transaction, prevBlockHash string) *Block {
+func CreateBlock(data OperTx.Transaction, prevBlockHash string) *Block {
 	var block = Block{"", prevBlockHash, data}
 	err := block.CalculateHash()
 	if err != nil {

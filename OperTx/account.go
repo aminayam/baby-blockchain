@@ -1,8 +1,7 @@
-package Account
+package OperTx
 
 import (
 	"baby-blockchain/KeyPairSign"
-	"baby-blockchain/OperTx"
 	"fmt"
 	"strings"
 )
@@ -16,7 +15,7 @@ type Account struct {
 }
 
 func GenAccount() Account {
-	var wallet map[int]KeyPairSign.KeyPair
+	wallet := make(map[int]KeyPairSign.KeyPair)
 	wallet[1] = KeyPairSign.GenKeyPair()
 	var balance []string
 	return Account{AccountID: idGen(), Wallet: wallet, Balance: balance}
@@ -30,10 +29,10 @@ func (account Account) UpdateBalance(newItem string) {
 	account.Balance = append(account.Balance, newItem)
 }
 
-func (account Account) CreatePaymentOp(receiver Account, id int, items []string) *OperTx.Operation {
-	data := strings.Join(items, " ")
+func (account Account) CreatePaymentOp(receiver Account, id int, items []string) *Operation {
+	data := strings.Join(items, "")
 	signature := account.SignData(data, id)
-	return &OperTx.Operation{Sender: account, Receiver: receiver, Items: items, Signature: signature}
+	return &Operation{Sender: account, Receiver: receiver, Items: items, Signature: signature}
 }
 
 func (account Account) GetBalance() []string {
