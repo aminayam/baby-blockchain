@@ -1,4 +1,4 @@
-package Blocks
+package blockchain
 
 import (
 	"crypto/md5"

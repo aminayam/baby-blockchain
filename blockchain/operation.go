@@ -1,4 +1,4 @@
-package Blocks
+package blockchain
 
 type Operation struct {
 	Sender    Account

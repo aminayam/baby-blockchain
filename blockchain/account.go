@@ -1,7 +1,7 @@
-package Blocks
+package blockchain
 
 import (
-	"baby-blockchain/KeyPairSign"
+	"baby-blockchain/signature"
 	"fmt"
 )
 
@@ -9,18 +9,18 @@ var ID []int
 
 type Account struct {
 	AccountID int
-	Wallet    map[int]KeyPairSign.KeyPair
+	Wallet    map[int]signature.KeyPair
 	Balance   []string
 }
 
 func GenAccount(bc *Blockchain) {
-	wallet := make(map[int]KeyPairSign.KeyPair)
-	wallet[1] = KeyPairSign.GenKeyPair()
+	wallet := make(map[int]signature.KeyPair)
+	wallet[1] = signature.GenKeyPair()
 	balance := make([]string, 100)
 	bc.Accounts = append(bc.Accounts, Account{AccountID: idGen(), Wallet: wallet, Balance: balance})
 }
 
-func (account *Account) AddKeyPairToWallet(NewKeyPair KeyPairSign.KeyPair) {
+func (account *Account) AddKeyPairToWallet(NewKeyPair signature.KeyPair) {
 	account.Wallet[len(account.Wallet)+1] = NewKeyPair
 }
 
@@ -46,7 +46,7 @@ func (account *Account) PrintBalance() {
 }
 
 func (account *Account) SignData(data string, id int) []byte {
-	signature, _ := KeyPairSign.SignData(account.Wallet[id].PrivateKey, data)
+	signature, _ := signature.SignData(account.Wallet[id].PrivateKey, data)
 	return signature
 }
 

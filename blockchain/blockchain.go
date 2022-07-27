@@ -1,4 +1,4 @@
-package Blocks
+package blockchain
 
 type Blockchain struct {
 	CoinDatabase map[int][]string //таблица отражающая текущее состояние балансов в системе. В качестве ключа используется идентификатор аккаунтa, в качестве значения - список владений пользователя.

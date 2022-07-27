@@ -1,4 +1,4 @@
-package KeyPairSign
+package signature
 
 import (
 	"crypto"
