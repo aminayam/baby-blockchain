@@ -8,9 +8,9 @@ import (
 var ID []int
 
 type Account struct {
-	AccountID int
-	Wallet    map[int]signature.KeyPair
-	Balance   []string
+	AccountID int                       //unique id of account(start from '1' and increase one by one)
+	Wallet    map[int]signature.KeyPair //wallet with key pairs
+	Balance   []string                  //balance of account (list of current tokens that belong to account)
 }
 
 func GenAccount(bc *Blockchain) {
@@ -33,8 +33,8 @@ func (account *Account) UpdateBalanceSender(newItem string) {
 }
 
 func (account *Account) CreatePaymentOp(receiver Account, id int, token string) *Operation {
-	signature := account.SignData(token, id)
-	return &Operation{Sender: *account, Receiver: receiver, Token: token, Signature: signature}
+	sign := account.SignData([]byte(token), id)
+	return &Operation{Sender: *account, Receiver: receiver, Token: token, Signature: sign}
 }
 
 func (account *Account) GetBalance() []string {
@@ -45,9 +45,8 @@ func (account *Account) PrintBalance() {
 	fmt.Println(account.Balance)
 }
 
-func (account *Account) SignData(data string, id int) []byte {
-	signature, _ := signature.SignData(account.Wallet[id].PrivateKey, data)
-	return signature
+func (account *Account) SignData(data []byte, id int) []byte {
+	return signature.SignData(account.Wallet[id].PrivateKey, data)
 }
 
 func idGen() int {
@@ -56,13 +55,13 @@ func idGen() int {
 	return newId
 }
 
-func GetAccountById(bc Blockchain, id int) Account {
+func GetAccountById(bc Blockchain, id int) (Account, bool) {
 	for _, acc := range bc.Accounts {
 		if acc.AccountID == id {
-			return acc
+			return acc, true
 		}
 	}
-	return Account{}
+	return Account{}, false
 }
 
 func Remove(s []string, r string) []string {

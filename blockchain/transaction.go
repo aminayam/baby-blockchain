@@ -1,6 +1,7 @@
 package blockchain
 
 import (
+	"baby-blockchain/signature"
 	"encoding/json"
 )
 
@@ -37,4 +38,11 @@ func Nonce() int {
 	newNonce := len(NonceList) + 1
 	NonceList = append(NonceList, newNonce)
 	return newNonce
+}
+
+func VerifyTransactionSignature(bc *Blockchain, txNonce int) bool {
+	ans := signature.VerifySignature(bc.TxDatabase[txNonce-1].Operation.Signature,
+		bc.Accounts[bc.TxDatabase[txNonce-1].Operation.Sender.AccountID].Wallet[1].PublicKey,
+		[]byte(bc.TxDatabase[txNonce-1].Operation.Token))
+	return ans
 }

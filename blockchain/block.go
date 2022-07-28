@@ -7,9 +7,9 @@ import (
 )
 
 type Block struct {
-	BlockID       string      //уникальный идентификатор блока (хэш-значение от всех остальных данных).
-	PrevBlockHash string      //идентификатор предыдущего блока (необходим для обеспечения проверки целостности истории).
-	Transaction   Transaction //список транзакций, подтверждаемых в данном блоке.
+	BlockID       string      //unique block identifier (hash value from all other data)
+	PrevBlockHash string      //identifier of the previous block (required to ensure the integrity of the history)
+	Transaction   Transaction //transaction that confirmed in this block
 }
 
 func CreateBlock(data Transaction, prevBlockHash string) *Block {

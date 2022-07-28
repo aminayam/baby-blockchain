@@ -9,7 +9,15 @@ type Operation struct {
 }
 
 func CreateOperation(bc Blockchain, sender int, walletID int, receiver int, token string) Operation {
-	return Operation{GetAccountById(bc, sender), walletID, GetAccountById(bc, receiver), token, []byte{}}
+	senderAcc, err1 := GetAccountById(bc, sender)
+	receiverAcc, err2 := GetAccountById(bc, receiver)
+
+	if !err1 || !err2 { //stop in case wrong account id (that don`t exist)
+		return Operation{}
+	}
+
+	operation := senderAcc.CreatePaymentOp(receiverAcc, walletID, token)
+	return *operation
 }
 
 func VerifyOperation(op Operation) bool {
