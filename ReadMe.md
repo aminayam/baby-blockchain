@@ -1,13 +1,18 @@
-# ЭТАП 1. Terms of reference
+## Terms of reference
 
-Просматривая статьи в интернете, я наткнулась на интересный кейс использования технологии блокчейн - __система учета драгоценных камней__, в частности алмазов.
-Я хочу реализовать более простую её версию на Golang. Буду очень рада советам и замечаниям, в принципе любому фидбеку, я сама еще не до конца понимаю как все тут будет работать, и стоит ли усложнять систему: вводить какие-либо денежные операции и токены.
+Looking through articles on the Internet, I came across an interesting case of using blockchain technology - __gems accounting system__, in particular diamonds.
+I implemented a simpler version of it on Golang.
 
-* `Назначение системы.` Учет драгоценных камней. У кажого камня в системе изначально есть правильный оригинальный id.
-* `Содержание системы.` В своей модели я буду рассматривать только передачу прав владения внутри системы, "денежные" переводы скорее всего останутся вне системы. Баланс пользователя будет представлять собой список оригинальных идентификаторов камней, которым он владеет, следовательно с помощью транзакций он может передать определенный id, перезаписав в БД владельца
-* `Взаимодействие с другими продуктами.` Не предвидится
-* `Функции продукта.`
-    * возможность узнать текущего владельца (открытые данные БД);
-    * подтверждение владения и передачи прав владения для пользователей системы;
-    * просмотр собственного "баланса".
-* `Характеристики пользователей.` Пользователи = верифицированные владельцы (и потенциальные владельцы) драгоценностей.
+* `Purpose of the system.` Accounting for unique non-fungible tokens. Each stone in the system initially has the correct original id.
+* `System content.` In my model, I will consider only the transfer of ownership within the system, "money" transfers will remain outside the system. The user's balance will be a list of original identifiers that he owns, therefore, with the help of transactions, he can transfer a certain id, overwriting it in the owner's database
+* `Interaction with other products` Not expected yet
+* `Product features.`
+  * the ability to find out the current owner (public database data);
+  * confirmation of ownership and transfer of ownership for users of the system;
+  * view your own "balance".
+* `Characteristics of users.` Users = verified owners (and potential owners) of tokens = jewels.
+
+## Working with the product
+
+The entry point is the `main.go` file in root of project.
+There you can see an introductory tour of the system, the comments describe the functionality and features. Also, you can manually change the code according to the prompts in order to conduct your research.
